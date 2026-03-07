@@ -1,0 +1,35 @@
+
+root, core, config
+
+django commands
+python manage.py makemigrations     - make mig
+python manage.py migrate            - make up
+python manage.py createsuperuser
+python manage.py startapp apps
+
+university (name, established_year, address)
+student (first_name, last_name, phone, birth_date)
+
+yodlash
+http method (get, post, patch, put, delete, options, head)
+status (200, 201, 204, 3xx, 400, 401, 403, 404, 405, 5xx)
+
+
+videolar
+komandalar
+field, options
+
+
+https://books.agiliq.com/projects/django-orm-cookbook/en/latest/
+
+
+
+
+
+https://books.agiliq.com/projects/django-admin-cookbook/en/latest/index.html#calculated-fields
+https://books.agiliq.com/projects/django-admin-cookbook/en/latest/index.html#bulk-and-custom-actions
+https://books.agiliq.com/projects/django-orm-cookbook/en/latest/#querying-and-filtering (8)
+
+#Homework
+
+Student (first_name, last_name, phone, birth_date, university)

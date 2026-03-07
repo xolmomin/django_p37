@@ -1,0 +1,87 @@
+<!-- templates/product_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Detail - {{ product.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .product-info {
+            background: #fff;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .product-info p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .buttons a, .buttons form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background-color: #2196F3;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+        }
+
+        .back-btn {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Product Detail: {{ product.name }}</h1>
+
+<div class="product-info">
+    <p><strong>Name:</strong> {{ product.name }}</p>
+    <p><strong>Price:</strong> {{ product.price }} $</p>
+    <p><strong>Description:</strong> {{ product.description }}</p>
+    <p><strong>Category:</strong> {{ product.category.name }}</p>
+    <p><strong>Status:</strong> {% if product.category.is_active %}Active{% else %}Inactive{% endif %}</p>
+</div>
+
+<div class="buttons">
+    <!-- Edit link -->
+    <a href="#" class="edit-btn">Edit</a>
+
+    <a href="{% url 'product_delete_page' product.pk %}" class="delete-btn">Delete</a>
+
+    <!-- Back to list -->
+    <a href="{% url 'product_list_page' %}" class="back-btn">Back to List</a>
+</div>
+
+</body>
+</html>
