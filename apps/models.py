@@ -1,20 +1,27 @@
-from django.db.models import CharField, Model, ForeignKey, CASCADE
-from django.db.models.fields import IntegerField, TextField, BooleanField
+from django.db.models import CharField, Model, ForeignKey, CASCADE, ManyToManyField, ImageField
+from django.db.models.fields import IntegerField, TextField, BooleanField, DateTimeField
 
 
-class Category(Model):
-    name = CharField(max_length=255)
-    is_active = BooleanField(default=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Product(Model):
-    name = CharField(max_length=255)
-    price = IntegerField(default=0)
-    description = TextField()
-    category = ForeignKey('apps.Category', CASCADE)
+class Topic(Model):
+    name = CharField(verbose_name='Nomi', max_length=255)
+    is_active = BooleanField(default=False)
 
     def __str__(self):
         return self.name
+
+
+class News(Model):
+    title = CharField(max_length=255)
+    topics = ManyToManyField('apps.Topic', blank=True)
+    created_at = DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Yangilik'
+        verbose_name_plural = 'Yangiliklar'
+
+
+class Image(Model):
+    image = ImageField(upload_to='news/%Y/%m/d')
+    news = ForeignKey('apps.News', CASCADE, related_name='images')
+
+

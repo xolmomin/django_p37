@@ -33,3 +33,34 @@ https://books.agiliq.com/projects/django-orm-cookbook/en/latest/#querying-and-fi
 #Homework
 
 Student (first_name, last_name, phone, birth_date, university)
+
+
+
+1.
+Course:
+name
+price
+
+Student:
+first_name
+last_name
+phone
+birth_date
+passport_number
+passport_series
+courses = ManyToManyField('apps.Course', blank=True)
+------------------------------------------------------------
+2.
+adminkada
+Course: Nomi, Narxi, Studentlar soni
+
+Student: Nomeri, Tugilgan sanasi (necha kun qolganligi), Pasporti, Kurslari
+------------------------------------------------------------
+3. adminkada
+Student nomeri va ismi boyicha search qilish
+------------------------------------------------------------
+4. student ni kop documentlari boladi
+adminkada student ichiga kirganda dokumentlari chiqishi kerak
+
+
+
