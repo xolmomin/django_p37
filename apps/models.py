@@ -18,10 +18,11 @@ class News(Model):
     class Meta:
         verbose_name = 'Yangilik'
         verbose_name_plural = 'Yangiliklar'
+        unique_together = (
+            ('title', 'topics'),
+        )
 
 
 class Image(Model):
     image = ImageField(upload_to='news/%Y/%m/d')
     news = ForeignKey('apps.News', CASCADE, related_name='images')
-
-
