@@ -64,5 +64,6 @@ class ProductImage(Model):
 class Review(Model):
     title = CharField(max_length=255)
     comment = TextField()
+    product = ForeignKey('apps.Product', CASCADE, related_name='reviews')
     author = ForeignKey('auth.User', CASCADE, related_name='reviews')
     created_at = DateTimeField(auto_now=True)
