@@ -1,10 +1,11 @@
 from django.urls import path
 
-from apps.views import product_list_page, product_detail_page, login_page, logout_page
+from apps.views import ProductListView, ProductDetailView, CustomLoginView, CustomLogoutView, RegisterCreateView
 
 urlpatterns = [
-    path('', product_list_page, name='product_list_page'),
-    path('product-detail/<int:pk>', product_detail_page, name='product_detail_page'),
-    path('login', login_page, name='login_page'),
-    path('logout', logout_page, name='logout_page'),
+    path('', ProductListView.as_view(), name='product_list_page'),
+    path('product-detail/<int:pk>', ProductDetailView.as_view(), name='product_detail_page'),
+    path('login', CustomLoginView.as_view(), name='login_page'),
+    path('register', RegisterCreateView.as_view(), name='register_page'),
+    path('logout', CustomLogoutView.as_view(), name='logout_page'),
 ]

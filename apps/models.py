@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from django.contrib.auth.models import User
 from django.db.models import Model, CharField, ForeignKey, CASCADE, DecimalField, IntegerField, ImageField, Q, F, \
-    ManyToManyField, JSONField
+    ManyToManyField, JSONField, EmailField, TextChoices
 from django.db.models.constraints import CheckConstraint
 from django.db.models.fields import PositiveIntegerField, DateTimeField, SmallIntegerField, PositiveSmallIntegerField, \
     TextField

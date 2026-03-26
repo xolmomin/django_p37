@@ -1,42 +1,48 @@
-from django.contrib.auth import logout, authenticate, login
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth import logout, login
 from django.contrib.auth.models import User
-from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.views import LoginView
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import ListView, DetailView, CreateView
 
+from apps.forms import RegisterUserModelForm
 from apps.models import Product
 
 
-def product_list_page(request):
-    context = {
-        'products': Product.objects.all()
-    }
-
-    return render(request, 'apps/product-grid.html', context)
+class ProductListView(ListView):
+    queryset = Product.objects.all()
+    template_name = 'apps/product-grid.html'
+    context_object_name = 'products'
 
 
-def product_detail_page(request, pk):
-    product = get_object_or_404(Product, id=pk)
-
-    context = {
-        'product': product
-    }
-
-    return render(request, 'apps/product-details.html', context)
+class ProductDetailView(DetailView):
+    queryset = Product.objects.all()
+    template_name = 'apps/product-details.html'
 
 
-def login_page(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')  # 123 -> hashed_password
-
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('product_list_page')
-
-    return render(request, 'apps/login.html')
+class CustomLoginView(LoginView):
+    template_name = 'apps/auth/login.html'
+    next_page = reverse_lazy('product_list_page')
 
 
-def logout_page(request):
-    logout(request)
-    return redirect('product_list_page')
+class CustomLogoutView(View):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('product_list_page')
+
+
+class RegisterCreateView(CreateView):
+    queryset = User.objects.all()
+    template_name = 'apps/auth/register.html'
+    form_class = RegisterUserModelForm
+    success_url = reverse_lazy('product_list_page')
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+    def form_valid(self, form):
+        self.object = form.save()
+        login(self.request, self.object)
+        return HttpResponseRedirect(self.get_success_url())
