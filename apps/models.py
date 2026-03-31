@@ -67,3 +67,14 @@ class Review(Model):
     product = ForeignKey('apps.Product', CASCADE, related_name='reviews')
     author = ForeignKey('auth.User', CASCADE, related_name='reviews')
     created_at = DateTimeField(auto_now=True)
+
+
+class Cart(Model):
+    user = ForeignKey('auth.User', CASCADE, related_name='carts')
+    product = ForeignKey('apps.Product', CASCADE, related_name='carts')
+    quantity = PositiveIntegerField(db_default=1)
+
+    class Meta:
+        unique_together = (
+            ('user', 'product'),
+        )

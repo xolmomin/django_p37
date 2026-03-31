@@ -94,12 +94,17 @@
                                         class="fa fa-star-half-alt text-warning star-icon"></span><span
                                         class="ml-1">(20)</span>
                                 </div>
-                                <div><a class="btn btn-sm btn-falcon-default mr-2" href="#!"
-                                        data-toggle="tooltip" data-placement="top"
-                                        title="Add to Wish List"><span class="far fa-heart"></span></a><a
-                                        class="btn btn-sm btn-falcon-default" href="#!" data-toggle="tooltip"
-                                        data-placement="top" title="Add to Cart"><span
-                                        class="fas fa-cart-plus"></span></a></div>
+                                <div>
+                                    <a class="btn btn-sm btn-falcon-default mr-2" href="#!"
+                                       data-toggle="tooltip" data-placement="top"
+                                       title="Add to Wish List">
+                                        <span class="far fa-heart"></span>
+                                    </a>
+                                    <a class="btn btn-sm btn-falcon-default" href="{% url 'add_cart_page' product.pk %}" data-toggle="tooltip"
+                                       data-placement="top" title="Add to Cart">
+                                        <span class="fas fa-cart-plus"></span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

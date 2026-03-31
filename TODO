@@ -1,67 +1,25 @@
 
-root, core, config
-
-django commands
-python manage.py makemigrations     - make mig
-python manage.py migrate            - make up
-python manage.py createsuperuser
-python manage.py startapp apps
-
-university (name, established_year, address)
-student (first_name, last_name, phone, birth_date)
-
-yodlash
-http method (get, post, patch, put, delete, options, head)
-status (200, 201, 204, 3xx, 400, 401, 403, 404, 405, 5xx)
 
 
-videolar
-komandalar
-field, options
+product list
+product detail
+login
+register
 
+shopping-cart
+checkout
 
-https://books.agiliq.com/projects/django-orm-cookbook/en/latest/
+admin uchun
+customer
+order list
+order detail
 
 
 
+gmail
+celery
 
 
-https://books.agiliq.com/projects/django-admin-cookbook/en/latest/index.html#calculated-fields
-https://books.agiliq.com/projects/django-admin-cookbook/en/latest/index.html#bulk-and-custom-actions
-https://books.agiliq.com/projects/django-orm-cookbook/en/latest/#querying-and-filtering (8)
+python manage.py sendtestemail ozimizni@pochta
 
-#Homework
-
-Student (first_name, last_name, phone, birth_date, university)
-
-
-
-1.
-Course:
-name
-price
-
-Student:
-first_name
-last_name
-phone
-birth_date
-passport_number
-passport_series
-courses = ManyToManyField('apps.Course', blank=True)
-------------------------------------------------------------
-2.
-adminkada
-Course: Nomi, Narxi, Studentlar soni
-
-Student: Nomeri, Tugilgan sanasi (necha kun qolganligi), Pasporti, Kurslari
-------------------------------------------------------------
-3. adminkada
-Student nomeri va ismi boyicha search qilish
-------------------------------------------------------------
-4. student ni kop documentlari boladi
-adminkada student ichiga kirganda dokumentlari chiqishi kerak
-------------------------------------------------------------
-5. studentga rasm qoshish kerak va adminkada list displayda chiqsin
-------------------------------------------------------------
 
