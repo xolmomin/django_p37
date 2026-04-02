@@ -2,30 +2,43 @@ from django.contrib.auth import logout, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.db.models import F
+from django.core.mail import send_mail
+from django.db.models import F, Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, TemplateView
+from django.views.generic import ListView, DetailView, CreateView
 
 from apps.forms import RegisterUserModelForm
-from apps.models import Product, Cart
+from apps.models import Product, Cart, Category
+from apps.tasks import send_to_email
+from root.settings import EMAIL_HOST_USER
 
 
-def test_list_page(request):
-    context = {}
+class CategoryMixin:
 
-    return render(request, 'apps/product-grid.html', context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 
-class ProductListView(ListView):
+class ProductListView(CategoryMixin, ListView):
     queryset = Product.objects.all()
     template_name = 'apps/product-grid.html'
     context_object_name = 'products'
 
+    def get_queryset(self):
+        qs = super().get_queryset()
 
-class ProductDetailView(DetailView):
+        if _category := self.request.GET.get('category'):
+            qs = qs.filter(category_id=_category)
+
+        return qs
+
+
+class ProductDetailView(CategoryMixin, DetailView):
     queryset = Product.objects.all()
     template_name = 'apps/product-details.html'
 
@@ -52,11 +65,11 @@ class RegisterCreateView(CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        login(self.request, self.object)
+        send_to_email.delay(self.object.email, self.object.first_name)
         return HttpResponseRedirect(self.get_success_url())
 
 
-class ShoppingCartListView(LoginRequiredMixin, ListView):
+class ShoppingCartListView(CategoryMixin, LoginRequiredMixin, ListView):
     queryset = Cart.objects.all()
     template_name = 'apps/shopping-cart.html'
     context_object_name = 'carts'
